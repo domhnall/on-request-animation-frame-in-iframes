@@ -1,0 +1,38 @@
+<html>
+<head>
+</head>
+<body>
+<p>This is my frame</p>
+<ol id="log_messages"></ol>
+<script>
+  let start_time = null;
+  
+  const $message_container = document.getElementById("log_messages"),
+  log_message = function(msg){
+    const $msg = document.createElement("li"),
+    $text = document.createTextNode(msg);
+    $msg.appendChild($text);
+    $message_container.appendChild($msg);
+  },
+  animate_continuously = function(timestamp){
+    if(!start_time){
+      start_time = timestamp;
+    } else if(timestamp-start_time>500) {
+      log_message("Finishing animation");
+      alert("Animation done");
+      return;
+    } else {
+      log_message("Animating: " + timestamp);
+    };
+    requestAnimationFrame(animate_continuously);
+  };
+  
+  document.addEventListener("DOMContentLoaded", function(e){
+    log_message("DOMContentLoaded");
+    log_message("Starting animation");
+    animate_continuously();
+  })
+</script>
+
+</body>
+</html>
